@@ -1,0 +1,100 @@
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Stack from '@mui/material/Stack';
+import SideBarItems from '../sidebar/SideBarItems';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleSidebar } from '../../actions/sidebarSilice';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import { Axios } from '../../app/axiosClient';
+import { logout } from '../../actions/authSlice';
+import { useNavigate } from 'react-router-dom';
+
+export default function Scafold({ children }) {
+    const meme = React.useCallback(() => {
+        return <SideBarItems />
+    }, []);
+    const sidebar = useSelector((state) => state.sidebar);
+    const auth = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogOut = async () => {
+        try {
+            const response = await Axios.get('/logout');
+            dispatch(logout());
+            return navigate('/login');
+        } catch (error) {
+            console.log({ error });
+        }
+    }
+
+    return (
+        <React.Fragment>
+            <CssBaseline />
+            <Stack direction="row" style={{ width: '100vw', minHeight: '100vh', background: 'white' }} minHeight={"100vh"}>
+                <Stack direction="row" justifyContent={'start'} style={{ width: (sidebar.show) ? '20vw' : '0', minHeight: '100vh', background: '#010226' }}>
+                    {sidebar.show ? meme() : null}
+                </Stack>
+                <Stack direction="column" style={{ width: (sidebar.show) ? '80vw' : '100vw' }} dir={'rtl'}>
+                    <AppBar position="static" sx={{ backgroundColor: '#010226' }}>
+                        <Toolbar variant='regular'>
+                            <IconButton
+                                onClick={() => dispatch(toggleSidebar({ prevState: sidebar.show }))}
+                                size="large"
+                                edge="end"
+                                color="inherit"
+                                aria-label="menu"
+                                sx={{ mr: 2 }}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                                پنل مدریت
+                            </Typography>
+                            <PopupState variant="popover" popupId="demo-popup-menu">
+                                {(popupState) => (
+                                    <React.Fragment>
+                                        <IconButton
+                                            {...bindTrigger(popupState)}
+                                            size="large"
+                                            edge="end"
+                                            color="inherit"
+                                            aria-label="menu"
+                                            sx={{ mr: -2 }}
+                                        >
+                                            <AccountCircleIcon />
+                                        </IconButton>
+                                        <Stack direction={'column'} sx={{ marginRight: '2rem', marginLeft: '1rem', cursor: 'pointer' }} onClick={() => popupState.open()} >
+                                            {auth?.user?.name}
+                                        </Stack>
+                                        <Menu {...bindMenu(popupState)} >
+                                            <MenuItem onClick={() => popupState.close()}>اطلاعات کاربری</MenuItem>
+                                            <MenuItem onClick={() => popupState.close()}>اطلاعات حساب</MenuItem>
+                                            <MenuItem sx={{ color: 'red' }} onClick={handleLogOut}>خروج</MenuItem>
+                                        </Menu>
+                                    </React.Fragment>
+                                )}
+                            </PopupState>
+                        </Toolbar>
+                    </AppBar>
+                    <Stack sx={{ padding: 2 }}>
+                        {children}
+                    </Stack>
+                </Stack>
+            </Stack>
+        </React.Fragment >
+    );
+}
+
