@@ -2,10 +2,12 @@ import React from 'react'
 import Scafold from '../components/layouts/Scafold'
 import { Paper, TextField, Stack, Button } from '@mui/material'
 import { Axios } from '../app/axiosClient'
+import { Store } from 'react-notifications-component';
+import { useNavigate } from 'react-router-dom';
 
 const Add = () => {
     const [form, setForm] = React.useState({});
-
+    const navigate = useNavigate();
     const handleChange = (event) => {
         setForm({ ...form, [event.target.name]: event.target.value });
     }
@@ -13,8 +15,35 @@ const Add = () => {
     const handleAddTicket = async () => {
         try {
             await Axios.post('/api/add_ticket', { title: form?.title, message: form?.message, order: 5 });
+            Store.addNotification({
+                title: "عملیات موفق",
+                message: "تیکت با موفقیت ثبت شد",
+                type: "success",
+                insert: "left",
+                container: "top-left",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 5000,
+                    onScreen: true
+                }
+            });
+            return navigate('/');
         } catch (error) {
             console.log(error);
+            Store.addNotification({
+                title: "عملیات نا موفق",
+                message: "خطا لطفا بعدا امتحان کنید",
+                type: "danger",
+                insert: "left",
+                container: "top-left",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 5000,
+                    onScreen: true
+                }
+            });
         }
     }
 

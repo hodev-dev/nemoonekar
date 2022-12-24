@@ -2,14 +2,15 @@ import React, { useEffect } from 'react'
 import Scafold from '../components/layouts/Scafold'
 import { Paper, TextField, Stack, Button } from '@mui/material'
 import { Axios } from '../app/axiosClient'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Loading from '../components/layouts/Loading'
+import { Store } from 'react-notifications-component';
 
 const Edit = () => {
     const [form, setForm] = React.useState({ title: '', message: '' });
     const [status, setStatus] = React.useState("LOADING");
     const [searchParam] = useSearchParams();
-
+    const navigate = useNavigate();
     React.useEffect(() => {
         Axios.post('/api/list_ticket', { id: searchParam.get('id') }).then((response) => {
             setForm(response.data);
@@ -28,8 +29,35 @@ const Edit = () => {
     const handleEditEticket = async () => {
         try {
             await Axios.post('/api/edit_ticket', { id: searchParam.get('id'), title: form?.title, message: form?.message, order: 5 });
+            Store.addNotification({
+                title: "عملیات موفق",
+                message: "تیکت با موفقیت ویرایش شد",
+                type: "success",
+                insert: "left",
+                container: "top-left",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 5000,
+                    onScreen: true
+                }
+            });
+            return navigate('/');
         } catch (error) {
             console.log(error);
+            Store.addNotification({
+                title: "عملیات نا موفق",
+                message: "خطا لطفا بعدا امتحان کنید",
+                type: "danger",
+                insert: "left",
+                container: "top-left",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 5000,
+                    onScreen: true
+                }
+            });
         }
     }
 

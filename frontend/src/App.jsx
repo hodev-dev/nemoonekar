@@ -11,6 +11,8 @@ import RouterContainer from './routes/RouterContainer';
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import CssBaseline from '@mui/material/CssBaseline';
+import { ReactNotifications } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 // Create rtl cache
 const cacheRtl = createCache({
@@ -31,6 +33,7 @@ export default function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <CacheProvider value={cacheRtl}>
+          <ReactNotifications />
           <RouterContainer />
         </CacheProvider>
       </PersistGate>

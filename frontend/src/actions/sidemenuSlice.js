@@ -7,7 +7,7 @@ export const sidemenuSlice = createSlice(
             collection: [
                 {
                     id: 1,
-                    title: "مدریت انبار",
+                    title: "مدریت تیکت ها",
                     isActive: true,
                     children: [
                         {
@@ -20,27 +20,41 @@ export const sidemenuSlice = createSlice(
                             title: 'لیست تیکت ها',
                             path: '/'
                         },
-                        {
-                            id: 1.3,
-                            title: 'تیکت های مشاهده نشده',
-                            path: '/seen'
-                        },
-                        {
-                            id: 1.4,
-                            title: 'تیکت های مشاهده شده',
-                            path: '/unseen'
-                        },
                     ]
                 },
                 {
                     id: 2,
-                    title: 'منوی شماره ۲',
+                    title: 'تست',
                     isActive: false,
                     children: [
                         {
                             id: 2.1,
-                            title: 'sub 1',
-                            path: '/user'
+                            title: 'زیر منو',
+                            path: '/1'
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: 'کتابخانه',
+                    isActive: false,
+                    children: [
+                        {
+                            id: 2.1,
+                            title: 'زیر منو',
+                            path: '/2'
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    title: 'آموزش',
+                    isActive: false,
+                    children: [
+                        {
+                            id: 2.1,
+                            title: 'زیر منو',
+                            path: '/3'
                         }
                     ]
                 }

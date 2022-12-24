@@ -34,7 +34,7 @@ const AccordionSummary = styled((props) => (
 const ListButton = styled((props) => (
     <Link to={props.path} key={props.text}>
         <Button fullWidth {...props}>
-            <Typography >{props.text}</Typography>
+            <Typography fontSize={19} >{props.text}</Typography>
         </Button>
     </Link>
 ))(({ theme }) => ({
@@ -42,23 +42,21 @@ const ListButton = styled((props) => (
     display: 'flex',
     justifyContent: 'start',
     height: '3rem',
-    fontSize: '18px',
     textAlign: 'right',
 }));
 
 const ListButtonActive = styled((props) => (
-    <Link style={{ background: '#03a9f4', color: 'auto' }} to={props.path} key={props.id}>
-        <Button type='contained' color='primary' fullWidth {...props}>
-            <Typography >{props.text}</Typography>
+    <Link style={{ background: '#2dd4bf' }} to={props.path} key={props.id}>
+        <Button type='contained' color='success' fullWidth {...props}>
+            <Typography fontSize={19} >{props.text}</Typography>
         </Button>
-    </Link>
+    </Link >
 ))(({ theme }) => ({
     display: 'flex',
     justifyContent: 'start',
     height: '3rem',
-    fontSize: '18px',
     textAlign: 'right',
-    color: (theme.palette.mode == 'dark') ? 'black' : 'white',
+    color: (theme.palette.mode == 'dark') ? 'black' : 'black',
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
@@ -82,9 +80,9 @@ export default function SideBarItems() {
         return sidemenu.map((menu) => {
             return (
                 <>
-                    <Accordion key={menu.id} expanded={findTarget(menu.id)} dir={'rtl'}>
+                    <Accordion elevation={3} key={menu.id} expanded={findTarget(menu.id)} dir={'rtl'}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={(event) => handleSidebar({ id: menu.id })} aria-controls="panel1d-content" id="panel1d-header">
-                            <Typography>{menu.title}</Typography>
+                            <Typography fontSize={19} fontWeight={'bold'}>{menu.title}</Typography>
                         </AccordionSummary>
                         <Divider />
                         <AccordionDetails >

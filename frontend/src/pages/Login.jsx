@@ -6,12 +6,16 @@ import Box from '@mui/material/Box';
 import Grow from '@mui/material/Grow';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from '../actions/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { Axios } from '../app/axiosClient'
 import { Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { toggleDarkMode } from '../actions/themeSlice';
+import IconButton from '@mui/material/IconButton';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const Login = () => {
     const [form, setForm] = useState({});
@@ -20,7 +24,7 @@ const Login = () => {
 
     const dispatch = useDispatch();
     let navigate = useNavigate();
-
+    const theme = useSelector((state) => state.theme);
     const handleChange = (event) => {
         setForm({ ...form, [event.target.name]: event.target.value });
     }
@@ -71,7 +75,7 @@ const Login = () => {
     }
 
     return (
-        <Stack direction={'row'} justifyContent='center' alignItems={'center'} sx={style.container}>
+        <Stack direction={'row'} justifyContent='center' alignItems={'center'} sx={{ ...style.container, background: (theme.isDark) ? 'black' : "#ebebeb" }}>
             <Stack direction={'column'} justifyContent='center' alignItems={'center'} >
                 <Grow in={true} timeout={1500}>
                     <Paper elevation={3} sx={style.box}>
@@ -92,6 +96,18 @@ const Login = () => {
                                     <Typography fontSize={18} fontWeight={'bold'} variant="text" >ثبت نام</Typography>
                                 </Link>
                             </Stack>
+                        </Stack>
+                        <Stack width={"100vw"} justifyContent='center' direction={'row'}>
+                            {
+                                (theme.isDark) ?
+                                    <IconButton sx={{ width: '4rem', height: '4rem' }} onClick={() => dispatch(toggleDarkMode())}>
+                                        <LightModeIcon color='warning' />
+                                    </IconButton>
+                                    :
+                                    <IconButton sx={{ width: '4rem', height: '4rem' }} onClick={() => dispatch(toggleDarkMode())}>
+                                        <DarkModeIcon color='white' />
+                                    </IconButton>
+                            }
                         </Stack>
                     </Paper>
                 </Grow>

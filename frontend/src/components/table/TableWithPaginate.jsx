@@ -19,6 +19,7 @@ import ListIcon from '@mui/icons-material/List';
 import { Axios } from '../../app/axiosClient'
 import TableAction from './TableAction';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import { Store } from 'react-notifications-component';
 
 export default function TableWithPaginate(props) {
     const [page, setPage] = React.useState(0);
@@ -62,8 +63,34 @@ export default function TableWithPaginate(props) {
             const response = await Axios.post('/api/delete_ticket', { id: deleteID });
             props.getTickets('/api/list_tickets');
             setOpen(false);
+            Store.addNotification({
+                title: "عملیات موفق",
+                message: "تیکت با موفقیت حذف شد",
+                type: "success",
+                insert: "left",
+                container: "top-left",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 5000,
+                    onScreen: true
+                }
+            });
         } catch (error) {
             console.log(error);
+            Store.addNotification({
+                title: "عملیات نا موفق",
+                message: "خطا لطفا بعدا امتحان کنید",
+                type: "danger",
+                insert: "left",
+                container: "top-left",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 5000,
+                    onScreen: true
+                }
+            });
         }
     }
 
