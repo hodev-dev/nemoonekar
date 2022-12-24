@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->bigInteger('order');
             $table->text('message');
+            $table->text('time');
             $table->timestamps();
         });
     }

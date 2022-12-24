@@ -20,3 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->get('/list_tickets', [TicketController::class, 'list_tickets']);
+Route::middleware('auth:sanctum')->post('/list_ticket', [TicketController::class, 'list_ticket']);
+Route::middleware('auth:sanctum')->post('/add_ticket', [TicketController::class, 'add_ticket']);
+Route::middleware('auth:sanctum')->post('/edit_ticket', [TicketController::class, 'edit_ticket']);
+Route::middleware('auth:sanctum')->post('/delete_ticket', [TicketController::class, 'delete_ticket']);

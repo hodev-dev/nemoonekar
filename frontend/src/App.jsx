@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import RouterContainer from './routes/RouterContainer';
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
+import CssBaseline from '@mui/material/CssBaseline';
 
 // Create rtl cache
 const cacheRtl = createCache({
@@ -17,17 +18,12 @@ const cacheRtl = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 });
 
+
+
 export default function App() {
-
   React.useEffect(() => {
-    // Axios.post('/signin', { email: 'test@gmail.com', password: '123456' }).then(response => {
-    //   console.log({ response });
-    // });
-    // Axios.get('/api/user').then(response => {
-    //   console.log({ response });
-    // });
-  }, [])
 
+  }, [])
 
   let persistor = persistStore(store);
 

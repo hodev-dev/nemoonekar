@@ -5,6 +5,7 @@ import authSlice from '../actions/authSlice';
 import counterSlice from '../actions/counterSlice';
 import sidebarSilice from '../actions/sidebarSilice';
 import sidemenuSlice from '../actions/sidemenuSlice';
+import themeSlice from '../actions/themeSlice';
 
 const persistConfig = {
     key: 'root',
@@ -13,6 +14,7 @@ const persistConfig = {
     timeout: 300
 }
 const rootReducer = combineReducers({
+    theme: themeSlice,
     auth: authSlice,
     counter: counterSlice,
     sidebar: sidebarSilice,

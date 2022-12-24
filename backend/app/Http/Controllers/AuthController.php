@@ -13,7 +13,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'email' => ['required', 'unique:users', 'email:rfc,dns'],
+            'email' => ['required', 'unique:users', 'email'],
             'password' => ['required', 'min:6'],
             'repassword' => ['required', 'same:password']
         ], [
@@ -32,8 +32,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
+            'email' => ['required', 'email'],
             'password' => ['required', 'min:6'],
-            'email' => ['required', 'min:6', 'email:rfc,dns'],
         ]);
         if (Auth::attempt($request->all())) {
             $request->session()->regenerate();

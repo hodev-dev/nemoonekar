@@ -12,37 +12,76 @@ import {
     Navigate,
     Outlet,
 } from "react-router-dom";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Error404 from './Error404';
+import Add from '../pages/Add';
+import Edit from '../pages/Edit';
 
 const RouterContainer = () => {
+    const isDark = useSelector((state) => state.theme.isDark);
+
+    console.log({ isDark });
+    const lightTheme = createTheme({
+        palette: {
+            mode: 'light',
+        },
+    });
+
+    const darkTheme = createTheme({
+        palette: {
+            mode: 'dark',
+        },
+    });
+
     return (
-        <Router >
-            <Routes>
-                <Route errorElement={<Error404 />} path="/login" element={
-                    <ProtectLogin>
-                        <Login />
-                    </ProtectLogin>
-                } />
-                <Route errorElement={<Error404 />} path="/register" element={
-                    <ProtectLogin>
-                        <Register />
-                    </ProtectLogin>
-                } />
-                <Route
-                    path="/"
-                    errorElement={<Error404 />}
-                    element={
-                        <RequireAuth>
-                            <Home />
-                        </RequireAuth>
-                    }
-                />
-                <Route errorElement={<Error404 />} path="*" element={<Error404 />} />
-            </Routes>
-        </Router>
+        <ThemeProvider theme={(isDark) ? darkTheme : lightTheme}>
+            <Router >
+                <Routes>
+                    <Route errorElement={<Error404 />} path="/login" element={
+                        <ProtectLogin>
+                            <Login />
+                        </ProtectLogin>
+                    } />
+                    <Route errorElement={<Error404 />} path="/register" element={
+                        <ProtectLogin>
+                            <Register />
+                        </ProtectLogin>
+                    } />
+                    <Route
+                        path="/"
+                        errorElement={<Error404 />}
+                        element={
+                            <RequireAuth>
+                                <Home />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/add"
+                        errorElement={<Error404 />}
+                        element={
+                            <RequireAuth>
+                                <Add />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/edit"
+                        errorElement={<Error404 />}
+                        element={
+                            <RequireAuth>
+                                <Edit />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route errorElement={<Error404 />} path="*" element={<Error404 />} />
+                </Routes>
+            </Router>
+        </ThemeProvider >
     )
 }
 function RequireAuth({ children }) {
