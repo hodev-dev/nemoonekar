@@ -109,7 +109,7 @@ export default function Scafold({ children }) {
                                 </PopupState>
                             </Toolbar>
                         </AppBar>
-                        <Stack sx={{ padding: 2 }}>
+                        <Stack sx={{ padding: 0 }}>
                             {children}
                         </Stack>
                     </Stack>

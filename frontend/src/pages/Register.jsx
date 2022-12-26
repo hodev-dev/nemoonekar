@@ -116,7 +116,7 @@ const Register = () => {
                             <Stack direction={'column'} style={style.error} alignSelf='start'>
                                 {renderErrors('password')}
                             </Stack >
-                            <Box sx={{ width: '100%', marginTop: -3 }}>
+                            <Box sx={{ width: '100%', marginTop: -1 }}>
                                 <LinearProgress sx={{ height: '1rem' }} color={passwordStregth.color} variant="buffer" value={passwordStregth.percent} />
                             </Box>
                             <Stack sx={{ marginTop: '1rem' }}>

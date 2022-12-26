@@ -20,17 +20,22 @@ export const sidemenuSlice = createSlice(
                             title: 'لیست تیکت ها',
                             path: '/'
                         },
+                        {
+                            id: 1.3,
+                            title: 'لیست تیکت ها',
+                            path: '/asdasd'
+                        },
                     ]
                 },
                 {
                     id: 2,
-                    title: 'تست',
+                    title: 'گزارشات',
                     isActive: false,
                     children: [
                         {
                             id: 2.1,
-                            title: 'زیر منو',
-                            path: '/1'
+                            title: 'ایجاد گزارش جدید',
+                            path: '/add_report'
                         }
                     ]
                 },

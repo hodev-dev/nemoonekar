@@ -20,6 +20,7 @@ import Register from '../pages/Register';
 import Error404 from './Error404';
 import Add from '../pages/Add';
 import Edit from '../pages/Edit';
+import AddReport from '../pages/AddReport';
 
 const RouterContainer = () => {
     const isDark = useSelector((state) => state.theme.isDark);
@@ -75,6 +76,15 @@ const RouterContainer = () => {
                         element={
                             <RequireAuth>
                                 <Edit />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/add_report"
+                        errorElement={<Error404 />}
+                        element={
+                            <RequireAuth>
+                                <AddReport />
                             </RequireAuth>
                         }
                     />

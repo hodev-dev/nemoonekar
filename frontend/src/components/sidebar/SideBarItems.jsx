@@ -101,16 +101,16 @@ export default function SideBarItems() {
         return menu.children.map((child) => {
             if (location.pathname == child.path) {
                 return (
-                    <>
+                    <React.Fragment key={child.id}>
                         <ListButtonActive key={child.id} {...location} path={child.path} text={child.title} />
                         <Divider />
-                    </>
+                    </React.Fragment>
                 )
             }
             return (
-                <>
-                    <ListButton key={child.path} path={child.path} text={child.title} />
-                </>
+                <React.Fragment key={child.id}>
+                    <ListButton key={child.id} path={child.path} text={child.title} />
+                </React.Fragment>
             )
         });
     }

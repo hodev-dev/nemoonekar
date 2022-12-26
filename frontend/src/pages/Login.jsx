@@ -116,6 +116,10 @@ const Login = () => {
     )
 }
 
+const Header = {
+    background: "",
+
+}
 const style = {
     container: {
         minWidth: '100vw',
