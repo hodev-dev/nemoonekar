@@ -36,6 +36,11 @@ export const sidemenuSlice = createSlice(
                             id: 2.1,
                             title: 'ایجاد گزارش جدید',
                             path: '/add_report'
+                        },
+                        {
+                            id: 2.2,
+                            title: 'گرافانا',
+                            path: '/test'
                         }
                     ]
                 },

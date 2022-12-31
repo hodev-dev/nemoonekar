@@ -21,6 +21,7 @@ import Error404 from './Error404';
 import Add from '../pages/Add';
 import Edit from '../pages/Edit';
 import AddReport from '../pages/AddReport';
+import Test from '../pages/Test';
 
 const RouterContainer = () => {
     const isDark = useSelector((state) => state.theme.isDark);
@@ -88,6 +89,7 @@ const RouterContainer = () => {
                             </RequireAuth>
                         }
                     />
+                    <Route errorElement={<Error404 />} path="/test" element={<Test />} />
                     <Route errorElement={<Error404 />} path="*" element={<Error404 />} />
                 </Routes>
             </Router>
